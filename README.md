@@ -1,4 +1,4 @@
-# kyonkao
+# kyonxkao
 
 This is my work for "kyon_mm * kaori_t_spica 結婚祝いLT大会 in Nagoya"
 
