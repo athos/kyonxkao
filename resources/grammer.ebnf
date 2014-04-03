@@ -1,0 +1,6 @@
+line = character <'：\n'> sentences
+character = 'よんた'
+sentences = sentence+
+sentence = 'ほげ' <end>
+         | 'ふが' <end>
+end = '。' | '！'
