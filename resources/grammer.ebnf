@@ -1,6 +1,86 @@
-line = character <'：\n'> sentences
-character = 'よんた'
-sentences = sentence+
-sentence = 'ほげ' <end>
-         | 'ふが' <end>
-end = '。' | '！'
+Play = Title CharacterDeclaration+ Act+
+Title = <'「'> String <'」'>
+String = #"[あ-ん]+"
+CharacterDeclaration = Character <'：'> <Comment> <EndSymbol>
+Act = ActHeader Scene+
+ActHeader = ActNum <'：'> <'「'> <Comment> <'」'>
+ActNum = <'第'> #"[0-9]" <'幕'>
+Scene = SceneHeader SceneContents
+SceneHeader = SceneNum <'：'> <'「'> <Comment> <'」'>
+SceneNum = <'第'> #"[0-9]" <'場'>
+SceneContents = EnterExit
+              | Line
+              | SceneContents EnterExit
+              | SceneContents Line
+EnterExit = <'['> CharacterList '登場' <']'>
+          | <'['> CharacterList '退場' <']'>
+          | <'['> '全員退場' <']'>
+CharacterList = Character <'、'> CharacterList
+              | Character
+Character = 'きょんくん' | 'かおりちゃん'
+Line = Character <'：'> Sentence+
+Sentence = UnconditionalSentence
+         | Conditional <'、'> UnconditionalSentence
+Comment = #"[あ-ん]+"
+EndSymbol = QuestionSymbol | StatementSymbol
+
+Value = Character
+      | Constant
+      | Pronoun
+      | Value <'と'> Value BinaryOperator
+Pronoun = FirstPerson | SecondPerson
+FirstPerson = '私'                      
+SecondPerson = 'あなた' | '君' | 'そなた' | '汝'
+Constant = UnarticulatedConstant
+         | <FirstPerson> <'の'> UnarticulatedConstant
+         | <SecondPerson> <'の'> UnarticulatedConstant
+UnarticulatedConstant = PositiveConstant | NegativeConstant
+PositiveConstant = PositiveNoun
+                 | PositiveAdjective PositiveConstant
+                 | NeutralAdjective PositiveConstant
+PositiveNoun = '女'
+PositiveAdjective = 'いい'
+NeutralAdjective = 'ふつうの'
+NegativeConstant = NegativeNoun
+                 | NegativeAdjective NegativeConstant
+                 | NeutralAdjective NegativeConstant
+NegativeNoun = '男'
+NegativeAdjective = '悪い'
+Adjective = PositiveAdjective
+          | NegativeAdjective
+          | NeutralAdjective
+BinaryOperator = 'の和'
+               | 'の差'
+               | 'の積'
+               | 'の商'
+               | 'の剰余'
+
+Conditional = 'もしそうなら' | 'もしそうでないなら'
+UnconditionalSentence = InOut
+                      | Jump
+                      | Question
+                      | Recall
+                      | Remember
+                      | Statement
+StatementSymbol = '。' | '！'
+InOut = <SecondPerson> 'の考えを教えて下さい' <StatementSymbol>
+      | <SecondPerson> 'の気持ちを打ち明けて下さい' <StatementSymbol>
+      | <SecondPerson> 'の心に聞いてみて下さい' <StatementSymbol>
+      | <SecondPerson> 'の心を開いて下さい'
+Jump = ActNum <JumpPhrase> <StatementSymbol>
+     | SceneNum <JumpPhrase> <StatementSymbol>
+JumpPhrase = 'へ進みましょう'
+           | 'へ進まなければなりません'
+           | 'へ戻りましょう'
+           | 'へ戻らなければなりません'
+Question = Value <'は'> Value Comparison <QuestionSymbol>
+QuestionSymbol = '？'
+Recall = String <'を思い出して下さい'> <StatementSymbol>
+Remember = Value <'を覚えて下さい'> <StatementSymbol>
+Statement = SecondPerson <'は'> Constant <'です'> <StatementSymbol>
+          | SecondPerson <'は'> Equality Value <'です'> <StatementSymbol>
+Comparison = NonnegatedComparison 'でない'
+           | NonnegatedComparison
+NonnegatedComparison = Equality | Inequality
+Equality = 'と同じくらい' Adjective
+Inequality = 'よりも' Adjective
