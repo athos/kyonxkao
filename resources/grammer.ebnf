@@ -17,7 +17,7 @@ Enter = <'['> CharacterList <'登場'> <']'>
 Exit = <'['> CharacterList <'退場'> <']'>
 Exeunt = <'['> <'全員退場'> <']'>
 <CharacterList> = (Character <'、'>)* Character
-<Character> = 'きょんくん' | 'かおりちゃん'
+<Character> = {{CHARACTERS}}
 Line = Character <'：'> Sentence+
 Sentence = UnconditionalSentence
          | Conditional <'、'> UnconditionalSentence
