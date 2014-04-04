@@ -30,8 +30,8 @@ Value = CharacterRef
 CharacterRef = Character
 ConstantRef = Constant
 Pronoun = FirstPerson | SecondPerson
-FirstPerson = <'私'> | <'僕'> | <'我'> | <'俺'> | <'吾輩'>
-SecondPerson = <'あなた'> | <'君'> | <'そなた'> | <'汝'>
+FirstPerson = {{FIRST_PERSON}}
+SecondPerson = {{SECOND_PERSON}}
 <Constant> = UnarticulatedConstant
          | <FirstPerson> <'の'> UnarticulatedConstant
          | <SecondPerson> <'の'> UnarticulatedConstant
