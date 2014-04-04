@@ -12,4 +12,7 @@
                 (s/replace "{{CHARACTERS}}" (load-wordlist "character")))))
 
 (defn parse [source]
-  (parser (s/replace source #"[\r\n]" "")))
+  (-> source
+      (s/replace #"\n#.*?\n" "")
+      (s/replace #"[\r\n]" "")
+      parser))
