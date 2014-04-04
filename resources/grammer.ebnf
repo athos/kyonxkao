@@ -19,8 +19,8 @@ Exeunt = <'['> <'全員退場'> <']'>
 <CharacterList> = (Character <'、'>)* Character
 <Character> = 'きょんくん' | 'かおりちゃん'
 Line = Character <'：'> Sentence+
-<Sentence> = UnconditionalSentence
-           | Conditional <'、'> UnconditionalSentence
+Sentence = UnconditionalSentence
+         | Conditional <'、'> UnconditionalSentence
 EndSymbol = QuestionSymbol | StatementSymbol
 
 Value = Character
@@ -50,9 +50,9 @@ BinaryOperator = 'の和'
                | 'の商'
                | 'の剰余'
 
-Conditional = IfSo | IfNotSo
+Conditional = IfSo | IfNot
 IfSo = <'もしそうなら'>
-IfNotSo = <'もしそうでないなら'>
+IfNot = <'もしそうでないなら'>
 <UnconditionalSentence> = InOut
                         | Jump
                         | Question
