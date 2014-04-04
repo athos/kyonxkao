@@ -29,6 +29,21 @@
       [:PositiveConstant & cs] (power-of-2 (dec (count cs)) 1)
       [:NegativeConstant & cs] (power-of-2 (dec (count cs)) -1))))
 
+(defn bop->operator [op]
+  (match op
+    [:SumOf] :add
+    [:DifferenceOf] :sub
+    [:ProductOf] :mul
+    [:QuotientOf] :div
+    [:RemainderOf] :rem))
+
+(defn value->operand [stage character value]
+  (match value
+    [_ [:CharacterRef c]] (stage c)
+    [_ [:ConstantRef c]] (constant->number c)
+    [_ [:Pronoun [:FirstPerson]]] (stage character)
+    [_ [:Pronoun [:SecondPerson]]] (the-other stage character) ))
+
 (defn not-implemented [cause]
   (throw (ex-info "not implemented" {:cause cause})))
 
@@ -41,7 +56,14 @@
                 [_ [:Jump & _]] (not-implemented sentence)
                 [_ [:Question & _]] (not-implemented sentence)
                 [_ [:Recall & _]] (not-implemented sentence)
-                [_ [:Statement [:Equality adjective]]] (not-implemented sentence)
+                [_ [:Statement [_ v1 v2 [_ bop]] _]]
+                #_=> (->> [(bop->operator bop) the-other
+                           (value->operand @stage character v1)
+                           (value->operand @stage character v2)]
+                          (conj insts))
+                [_ [:Statement value _]]
+                #_=> (let [operand (value->operand @stage character value)]
+                       (conj insts [:mov the-other operand]))
                 [_ [:Statement constant]] (let [c (constant->number constant)]
                                             (conj insts [:mov the-other c]))
                 [_ [:Conditional [:IfSo]] sentence'] (not-implemented sentence)
