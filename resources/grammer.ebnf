@@ -23,10 +23,12 @@ Sentence = UnconditionalSentence
          | Conditional <'、'> UnconditionalSentence
 EndSymbol = QuestionSymbol | StatementSymbol
 
-Value = Character
-      | Constant
+Value = CharacterRef
+      | ConstantRef
       | Pronoun
       | Value <'と'> Value BinaryOperator
+CharacterRef = Character
+ConstantRef = Constant
 Pronoun = FirstPerson | SecondPerson
 FirstPerson = <'私'> | <'僕'> | <'我'> | <'俺'> | <'吾輩'>
 SecondPerson = <'あなた'> | <'君'> | <'そなた'> | <'汝'>
@@ -44,11 +46,16 @@ NegativeAdjective = <'悪い'>
 Adjective = PositiveAdjective
           | NegativeAdjective
           | NeutralAdjective
-BinaryOperator = 'の和'
-               | 'の差'
-               | 'の積'
-               | 'の商'
-               | 'の剰余'
+BinaryOperator = SumOf
+               | DifferenceOf
+               | ProductOf
+               | QuotientOf
+               | RemainderOf
+SumOf = <'の和'>
+DifferenceOf = <'の差'>
+ProductOf = <'の積'>
+QuotientOf = <'の商'>
+RemainderOf =  <'の剰余'>
 
 Conditional = IfSo | IfNot
 IfSo = <'もしそうなら'>
@@ -74,7 +81,7 @@ QuestionSymbol = '？'
 Recall = <String> <'を思い出して下さい'> <StatementSymbol>
 Remember = Value <'を覚えて下さい'> <StatementSymbol>
 Statement = <SecondPerson> <'は'> Constant <'です'> <StatementSymbol>
-          | <SecondPerson> <'は'> Equality Value <'です'> <StatementSymbol>
+          | <SecondPerson> <'は'> Value Equality <'です'> <StatementSymbol>
 Comparison = NonnegatedComparison 'でない'
            | NonnegatedComparison
 NonnegatedComparison = Equality | Inequality
