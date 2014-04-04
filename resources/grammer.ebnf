@@ -17,7 +17,7 @@ Enter = <'['> CharacterList <'登場'> <']'>
 Exit = <'['> CharacterList <'退場'> <']'>
 Exeunt = <'['> <'全員退場'> <']'>
 <CharacterList> = (Character <'、'>)* Character
-<Character> = {{CHARACTERS}}
+<Character> = {{CHARACTER}}
 Line = Character <'：'> Sentence+
 Sentence = UnconditionalSentence
          | Conditional <'、'> UnconditionalSentence
@@ -37,12 +37,12 @@ SecondPerson = {{SECOND_PERSON}}
          | <SecondPerson> <'の'> UnarticulatedConstant
 <UnarticulatedConstant> = PositiveConstant | NegativeConstant
 PositiveConstant = (PositiveAdjective | NeutralAdjective)* PositiveNoun
-PositiveNoun = <'女'>
-PositiveAdjective = <'いい'>
-NeutralAdjective = <'ふつうの'>
+PositiveNoun = {{POSITIVE_NOUN}}
+PositiveAdjective = {{POSITIVE_ADJECTIVE}}
+NeutralAdjective = {{NEUTRAL_ADJECTIVE}}
 NegativeConstant = (NegativeAdjective | NeutralAdjective)* NegativeNoun
-NegativeNoun = <'男'>
-NegativeAdjective = <'悪い'>
+NegativeNoun = {{NEGATIVE_NOUN}}
+NegativeAdjective = {{NEGATIVE_ADJECTIVE}}
 Adjective = PositiveAdjective
           | NegativeAdjective
           | NeutralAdjective
