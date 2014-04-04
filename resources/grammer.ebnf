@@ -60,10 +60,9 @@ IfNot = <'もしそうでないなら'>
                         | Remember
                         | Statement
 StatementSymbol = '。' | '！'
-InOut = <SecondPerson> 'の考えを教えて下さい' <StatementSymbol>
-      | <SecondPerson> 'の気持ちを打ち明けて下さい' <StatementSymbol>
-      | <SecondPerson> 'の心に聞いてみて下さい' <StatementSymbol>
-      | <SecondPerson> 'の心を開いて下さい' <StatementSymbol>
+InOut = SpeakYourMind | OpenYourMind
+SpeakYourMind = <SecondPerson> <'の気持ちを聞かせて下さい'> <StatementSymbol>
+OpenYourMind = <SecondPerson> <'の心を開いて下さい'> <StatementSymbol>
 Jump = ActNum <JumpPhrase> <StatementSymbol>
      | SceneNum <JumpPhrase> <StatementSymbol>
 JumpPhrase = 'へ進みましょう'
