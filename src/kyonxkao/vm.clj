@@ -4,6 +4,7 @@
 
 ;;
 ;; Below are the VM instructions:
+;;  [:mov z x]
 ;;  [:add z x y]
 ;;  [:sub z x y]
 ;;  [:mul z x y]
