@@ -81,7 +81,7 @@ QuestionSymbol = '？'
 Recall = <String> <'を思い出して'> <'下さい'>? <StatementSymbol>
 Remember = Value <'を覚えて'> <'下さい'>? <StatementSymbol>
 Statement = <SecondPerson> <'は'> Constant <('だ'|'です')> <StatementSymbol>
-          | <SecondPerson> <'は'> Value Equality <('だ'|'です')> <StatementSymbol>
+          | <SecondPerson> <'は'> Value Equality <('人'|'やつ'|'男性'|'女性')> <('だ'|'です')> <StatementSymbol>
 Comparison = NonnegatedComparison 'でない'
            | NonnegatedComparison
 NonnegatedComparison = Equality | Inequality
