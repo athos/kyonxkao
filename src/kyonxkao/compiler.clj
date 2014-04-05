@@ -98,4 +98,4 @@
         characters (->> characters
                         (map-indexed (fn [i x] [x (symbol (str '$ i))]))
                         (into {}))]
-    (compile-acts characters acts)))
+    [characters (compile-acts characters acts)]))
