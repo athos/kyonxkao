@@ -8,9 +8,12 @@
     "positive_noun" "positive_adjective" "neutral_adjective"
     "negative_noun" "negative_adjective"})
 
-(defn load-wordlist [filename]
-  (with-open [r (io/reader (str "resources/wordlist/" filename ".wordlist"))]
-    (str (s/join " | " (map #(str "<'" % "'>") (line-seq r))) \newline)))
+(defn load-wordlist [wordlist]
+  (with-open [r (io/reader (str "resources/wordlist/" wordlist ".wordlist"))]
+    (let [format (if (= wordlist "character")
+                   #(str "'" % "'")
+                   #(str "<'" % "'>"))]
+      (str (s/join " | " (map format (line-seq r))) \newline))))
 
 (def ^:private parser
   (let [replace #(s/replace %1 (str "{{" (s/upper-case %2) "}}") (load-wordlist %2))
