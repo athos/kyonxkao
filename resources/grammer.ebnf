@@ -68,8 +68,8 @@ IfNot = <'もしそうでないなら'>
                         | Statement
 StatementSymbol = '。' | '！'
 InOut = SpeakYourMind | OpenYourMind
-SpeakYourMind = <SecondPerson> <'の気持ちを聞かせて下さい'> <StatementSymbol>
-OpenYourMind = <SecondPerson> <'の心を開いて下さい'> <StatementSymbol>
+SpeakYourMind = <SecondPerson> <'の気持ちを聞かせて'> <'下さい'>? <StatementSymbol>
+OpenYourMind = <SecondPerson> <'の心を開いて'> <'下さい'>? <StatementSymbol>
 Jump = ActNum <JumpPhrase> <StatementSymbol>
      | SceneNum <JumpPhrase> <StatementSymbol>
 JumpPhrase = 'へ進みましょう'
@@ -78,10 +78,10 @@ JumpPhrase = 'へ進みましょう'
            | 'へ戻らなければなりません'
 Question = Value <'は'> Value Comparison <QuestionSymbol>
 QuestionSymbol = '？'
-Recall = <String> <'を思い出して下さい'> <StatementSymbol>
-Remember = Value <'を覚えて下さい'> <StatementSymbol>
-Statement = <SecondPerson> <'は'> Constant <'です'> <StatementSymbol>
-          | <SecondPerson> <'は'> Value Equality <'です'> <StatementSymbol>
+Recall = <String> <'を思い出して'> <'下さい'>? <StatementSymbol>
+Remember = Value <'を覚えて'> <'下さい'>? <StatementSymbol>
+Statement = <SecondPerson> <'は'> Constant <('だ'|'です')> <StatementSymbol>
+          | <SecondPerson> <'は'> Value Equality <('だ'|'です')> <StatementSymbol>
 Comparison = NonnegatedComparison 'でない'
            | NonnegatedComparison
 NonnegatedComparison = Equality | Inequality
